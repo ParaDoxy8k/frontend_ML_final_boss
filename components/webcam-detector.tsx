@@ -11,7 +11,7 @@ import type {
   DetectionHistoryItem,
 } from "@/components/detection-results";
 
-const API_ENDPOINT = "http://localhost:8000/detect";
+const API_ENDPOINT = "https://ml.nekowave.fun/detect";
 const INFERENCE_INTERVAL_MS = 66;
 
 const CLASS_COLORS: Record<string, string> = {
