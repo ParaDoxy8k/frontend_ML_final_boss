@@ -1,6 +1,7 @@
 "use client"
 
 import { WebcamDetector } from "@/components/webcam-detector"
+import { VideoUpload } from "@/components/video-upload"
 import { useState, useCallback } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Camera, Film} from "lucide-react"
@@ -53,9 +54,11 @@ export default function Home() {
               <TabsContent value="webcam" className="mt-4">
                 <WebcamDetector onDetectionComplete={handleDetectionComplete} />
               </TabsContent>
+
+              <TabsContent value="video" className="mt-4">
+                <VideoUpload onDetectionComplete={handleDetectionComplete} />
+              </TabsContent>
             </Tabs>
-
-
           </div>
 
           {/* Right: Results panel */}
