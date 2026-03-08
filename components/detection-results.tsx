@@ -145,7 +145,7 @@ export function DetectionResults({
                   </span>
                 </div>
                 {found && det ? (
-                  <div className="flex items-center gap-2 min-w-[90px]">
+                  <div className="flex items-center gap-2 min-w-22.5">
                     <Progress
                       value={det.confidence * 100}
                       className="h-1.5 w-14 bg-muted"
