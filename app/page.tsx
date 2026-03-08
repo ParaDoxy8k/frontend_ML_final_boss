@@ -1,17 +1,14 @@
 "use client"
 
-import WebcamDetector from "@/components/webcam-detector";
+import { WebcamDetector } from "@/components/webcam-detector"
 import { useState, useCallback } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
-import { Camera, Film, Cpu, Activity } from "lucide-react"
+import { Camera, Film} from "lucide-react"
 import {
   DetectionResults,
   type Detection,
   type DetectionHistoryItem,
 } from "@/components/detection-results"
-import { BoundingBoxCanvas } from "@/components/bounding-box-canvas"
 
 export default function Home() {
   const [history, setHistory] = useState<DetectionHistoryItem[]>([])
@@ -22,6 +19,12 @@ export default function Home() {
       setActiveDetections(item.detections)
       setActiveImage(item.imageSrc)
   }, [])
+
+  const handleDetectionComplete = useCallback((item: DetectionHistoryItem) => {
+    setHistory((prev) => [...prev, item])
+    setActiveDetections(item.detections)
+  }, [])
+
   return (
     <div>
       {/* Main layout */}
@@ -48,49 +51,15 @@ export default function Home() {
               </TabsList>
 
               <TabsContent value="webcam" className="mt-4">
-                <WebcamDetector/>
+                <WebcamDetector onDetectionComplete={handleDetectionComplete} />
               </TabsContent>
-
             </Tabs>
 
-            {/* Active detection visualization (shown below tabs on mobile, inline on xl) */}
-            {activeImage && (
-              <div className="xl:hidden flex flex-col gap-3">
-                <Separator />
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Detection Visualization
-                </p>
-                <div className="rounded-xl overflow-hidden border border-border bg-muted/20">
-                  <BoundingBoxCanvas
-                    imageSrc={activeImage}
-                    detections={activeDetections}
-                    width={640}
-                    height={480}
-                  />
-                </div>
-              </div>
-            )}
+
           </div>
 
           {/* Right: Results panel */}
           <div className="flex flex-col gap-6">
-            {/* Detection visualization – only on xl */}
-            {activeImage && (
-              <div className="hidden xl:flex flex-col gap-3">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Detection Visualization
-                </p>
-                <div className="rounded-xl overflow-hidden border border-border bg-muted/20">
-                  <BoundingBoxCanvas
-                    imageSrc={activeImage}
-                    detections={activeDetections}
-                    width={380}
-                    height={285}
-                  />
-                </div>
-              </div>
-            )}
-
             <DetectionResults
               detections={activeDetections}
               history={history}
