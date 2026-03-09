@@ -31,7 +31,7 @@ export default function Home() {
       {/* Main layout */}
       <main className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6">
         <div className="grid grid-cols-1 xl:grid-cols-[1fr_380px] gap-6">
-          {/* Left: Detection tabs */}
+          {/* Left: Detection tabs 
           <div className="flex flex-col gap-6">
             <Tabs defaultValue="webcam">
               <TabsList className="bg-muted/50 border border-border p-1 h-auto gap-1">
@@ -60,7 +60,14 @@ export default function Home() {
               </TabsContent>
             </Tabs>
           </div>
-
+        */}
+          <div className="flex flex-col gap-6">
+            <Tabs defaultValue="webcam">
+              <TabsContent value="webcam" className="mt-4">
+                <WebcamDetector onDetectionComplete={handleDetectionComplete} />
+              </TabsContent>
+            </Tabs>
+          </div>
           {/* Right: Results panel */}
           <div className="flex flex-col gap-6">
             <DetectionResults
